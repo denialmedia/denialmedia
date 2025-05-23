@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: denialmedia
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: FLASK_APP
+        value: app.py
+      - key: FLASK_DEBUG
+        value: "1"
+    routes:
+      - source: /static
+        destination: static
+      - source: /(.*)
+        destination: /
